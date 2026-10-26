@@ -233,3 +233,35 @@ footer {
   .timeline { grid-template-columns: 1fr; padding: 0 1rem; }
   .modal-content { padding: 1.8rem; }
 }
+/* ---------- New Image Styles ---------- */
+
+/* Image inside the grid card */
+.empire-card {
+  padding: 0; /* Remove padding so image touches the edges */
+  overflow: hidden; /* Keeps image inside the card corners */
+}
+
+.card-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-bottom: 4px solid #8b5e34;
+}
+
+.card-content {
+  padding: 1.5rem; /* Add padding back to the text area */
+}
+
+/* Image inside the modal (popup) */
+.modal-hero-img {
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+/* Make sure modal content handles the new layout */
+.modal-content {
+  padding-top: 1.5rem; 
+}
