@@ -194,7 +194,7 @@ const empires = [
     name: "Persian (Achaemenid) Empire",
     period: "550 – 330 BC",
     continent: "Asia",
-    image: "https://images.unsplash.com/photo-1596725855303-7b90461129b8?auto=format&fit=crop&w=800&q=80",
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Persepolis_Ruins.jpg/800px-Persepolis_Ruins.jpg",
     summary: "The first great world empire, founded by Cyrus the Great, known for religious tolerance and administration.",
     description: "The Achaemenid Empire stretched from the Indus Valley to Greece, pioneering concepts of centralized administration, religious tolerance, and human rights.",
     rise: [
@@ -217,7 +217,7 @@ const empires = [
     name: "Mali Empire",
     period: "1235 – 1600",
     continent: "Africa",
-    image: "https://images.unsplash.com/photo-1590071394427-123ae9c86ad3?auto=format&fit=crop&w=800&q=80",
+        image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Djingareiber_cour.jpg/800px-Djingareiber_cour.jpg",
     summary: "A wealthy West African empire famous for its gold trade and the great city of Timbuktu.",
     description: "The Mali Empire was one of the richest in the world, known for its gold mines and scholarly centers like Timbuktu, which attracted scholars from across the Islamic world.",
     rise: [
