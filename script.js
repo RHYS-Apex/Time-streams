@@ -9,8 +9,13 @@ const modalMeta = document.getElementById('modalMeta');
 const modalDescription = document.getElementById('modalDescription');
 const modalDetails = document.getElementById('modalDetails');
 
+// View Toggle References
+const viewGridBtn = document.getElementById('viewGrid');
+const viewTimelineBtn = document.getElementById('viewTimeline');
+
 let currentContinent = 'all';
 let currentSearch = '';
+let currentView = 'grid'; // Tracks 'grid' or 'timeline'
 
 // ---------- Render Empire Cards ----------
 function renderEmpires() {
@@ -21,20 +26,42 @@ function renderEmpires() {
     ? empires
     : empires.filter(e => e.continent === currentContinent);
 
-  // 2. Filter by search text (case-insensitive)
+  // 2. Filter by search text
   if (currentSearch.trim() !== '') {
     filtered = filtered.filter(e => 
       e.name.toLowerCase().includes(currentSearch.toLowerCase())
     );
   }
 
-  // 3. Show "No results" message if nothing matches
+  // 3. Show "No results" message
   if (filtered.length === 0) {
     timeline.innerHTML = '<p style="text-align:center;grid-column:1/-1;color:#8b5e34;font-style:italic;font-size:1.2rem;margin-top:2rem;">No empires found. Try a different search or continent.</p>';
     return;
   }
 
-  // 4. Draw the cards
+  // 4. Handle Chronological Sorting for Timeline View
+  if (currentView === 'timeline') {
+    timeline.classList.add('timeline-mode');
+    
+    // Helper function to extract the start year for sorting
+    const getStartYear = (periodString) => {
+      const match = periodString.match(/\d+/);
+      if (!match) return 0;
+      let year = parseInt(match[0]);
+      // Handle BC by making the number negative
+      if (periodString.includes('BC')) {
+        year = -year;
+      }
+      return year;
+    };
+    
+    // Sort the array from oldest to newest
+    filtered.sort((a, b) => getStartYear(a.period) - getStartYear(b.period));
+  } else {
+    timeline.classList.remove('timeline-mode');
+  }
+
+  // 5. Draw the cards
   filtered.forEach((empire) => {
     const card = document.createElement('div');
     card.className = 'empire-card';
@@ -106,9 +133,24 @@ filterButtons.addEventListener('click', (e) => {
   renderEmpires();
 });
 
-// ---------- Search Bar Logic ----------
+// ---------- Search Bar ----------
 searchBar.addEventListener('input', (e) => {
   currentSearch = e.target.value;
+  renderEmpires();
+});
+
+// ---------- View Toggles ----------
+viewGridBtn.addEventListener('click', () => {
+  currentView = 'grid';
+  viewGridBtn.classList.add('active');
+  viewTimelineBtn.classList.remove('active');
+  renderEmpires();
+});
+
+viewTimelineBtn.addEventListener('click', () => {
+  currentView = 'timeline';
+  viewTimelineBtn.classList.add('active');
+  viewGridBtn.classList.remove('active');
   renderEmpires();
 });
 
