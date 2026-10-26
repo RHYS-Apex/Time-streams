@@ -16,21 +16,25 @@ let currentSearch = '';
 function renderEmpires() {
   timeline.innerHTML = '';
 
+  // 1. Filter by continent
   let filtered = currentContinent === 'all'
     ? empires
     : empires.filter(e => e.continent === currentContinent);
 
+  // 2. Filter by search text (case-insensitive)
   if (currentSearch.trim() !== '') {
     filtered = filtered.filter(e => 
       e.name.toLowerCase().includes(currentSearch.toLowerCase())
     );
   }
 
+  // 3. Show "No results" message if nothing matches
   if (filtered.length === 0) {
     timeline.innerHTML = '<p style="text-align:center;grid-column:1/-1;color:#8b5e34;font-style:italic;font-size:1.2rem;margin-top:2rem;">No empires found. Try a different search or continent.</p>';
     return;
   }
 
+  // 4. Draw the cards
   filtered.forEach((empire) => {
     const card = document.createElement('div');
     card.className = 'empire-card';
@@ -102,7 +106,7 @@ filterButtons.addEventListener('click', (e) => {
   renderEmpires();
 });
 
-// ---------- Search Bar ----------
+// ---------- Search Bar Logic ----------
 searchBar.addEventListener('input', (e) => {
   currentSearch = e.target.value;
   renderEmpires();
