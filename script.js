@@ -1,6 +1,7 @@
-// ---------- Element References ----------
+ // ---------- Element References ----------
 const timeline = document.getElementById('timeline');
 const filterButtons = document.getElementById('filterButtons');
+const searchBar = document.getElementById('searchBar');
 const modal = document.getElementById('modal');
 const closeBtn = document.getElementById('closeBtn');
 const modalTitle = document.getElementById('modalTitle');
@@ -8,27 +9,35 @@ const modalMeta = document.getElementById('modalMeta');
 const modalDescription = document.getElementById('modalDescription');
 const modalDetails = document.getElementById('modalDetails');
 
+let currentContinent = 'all';
+let currentSearch = '';
+
 // ---------- Render Empire Cards ----------
-function renderEmpires(filter = 'all') {
+function renderEmpires() {
   timeline.innerHTML = '';
 
-  const filtered = filter === 'all'
+  let filtered = currentContinent === 'all'
     ? empires
-    : empires.filter(e => e.continent === filter);
+    : empires.filter(e => e.continent === currentContinent);
+
+  if (currentSearch.trim() !== '') {
+    filtered = filtered.filter(e => 
+      e.name.toLowerCase().includes(currentSearch.toLowerCase())
+    );
+  }
 
   if (filtered.length === 0) {
-    timeline.innerHTML = '<p style="text-align:center;grid-column:1/-1;color:#8b5e34;font-style:italic;">No empires found for this continent yet.</p>';
+    timeline.innerHTML = '<p style="text-align:center;grid-column:1/-1;color:#8b5e34;font-style:italic;font-size:1.2rem;margin-top:2rem;">No empires found. Try a different search or continent.</p>';
     return;
   }
 
-  filtered.forEach((empire, index) => {
+  filtered.forEach((empire) => {
     const card = document.createElement('div');
     card.className = 'empire-card';
     
-    // We add a dynamic style based on the continent
     card.innerHTML = `
-      <div class="card-banner" data-continent="${empire.continent}">
-        <span class="banner-text">${empire.name}</span>
+      <div class="card-image-wrapper">
+        <img src="${empire.image}" alt="${empire.name}" class="card-img" onerror="this.style.display='none'">
       </div>
       <div class="card-content">
         <span class="continent-tag">${empire.continent}</span>
@@ -37,22 +46,17 @@ function renderEmpires(filter = 'all') {
         <p class="summary">${empire.summary}</p>
       </div>
     `;
-    card.addEventListener('click', () => openModal(index));
+    
+    card.addEventListener('click', () => openModal(empire));
     timeline.appendChild(card);
   });
 }
 
 // ---------- Open Modal ----------
-function openModal(originalIndex) {
-  const activeFilter = document.querySelector('.filter-btn.active').dataset.continent;
-  const list = activeFilter === 'all' ? empires : empires.filter(e => e.continent === activeFilter);
-  const empire = list[originalIndex];
-  if (!empire) return;
-
-  // Add the colored banner to the modal
+function openModal(empire) {
   modalTitle.innerHTML = `
-    <div class="modal-banner" data-continent="${empire.continent}">
-      <span class="banner-text">${empire.name}</span>
+    <div class="modal-image-wrapper">
+      <img src="${empire.image}" alt="${empire.name}" class="modal-hero-img" onerror="this.style.display='none'">
     </div>
     <div style="padding-top: 1rem;">${empire.name}</div>
   `;
@@ -94,7 +98,14 @@ filterButtons.addEventListener('click', (e) => {
   document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
   e.target.classList.add('active');
 
-  renderEmpires(e.target.dataset.continent);
+  currentContinent = e.target.dataset.continent;
+  renderEmpires();
+});
+
+// ---------- Search Bar ----------
+searchBar.addEventListener('input', (e) => {
+  currentSearch = e.target.value;
+  renderEmpires();
 });
 
 // ---------- Initial Render ----------
