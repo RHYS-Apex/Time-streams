@@ -1,4 +1,4 @@
- // ---------- Element References ----------
+// ---------- Element References ----------
 const timeline = document.getElementById('timeline');
 const filterButtons = document.getElementById('filterButtons');
 const modal = document.getElementById('modal');
@@ -25,9 +25,11 @@ function renderEmpires(filter = 'all') {
     const card = document.createElement('div');
     card.className = 'empire-card';
     
-    // Notice the new <img> tag here
+    // We add a dynamic style based on the continent
     card.innerHTML = `
-      <img src="${empire.image}" alt="${empire.name}" class="card-img" loading="lazy">
+      <div class="card-banner" data-continent="${empire.continent}">
+        <span class="banner-text">${empire.name}</span>
+      </div>
       <div class="card-content">
         <span class="continent-tag">${empire.continent}</span>
         <h3>${empire.name}</h3>
@@ -47,9 +49,11 @@ function openModal(originalIndex) {
   const empire = list[originalIndex];
   if (!empire) return;
 
-  // Add the image to the modal HTML
+  // Add the colored banner to the modal
   modalTitle.innerHTML = `
-    <img src="${empire.image}" alt="${empire.name}" class="modal-hero-img">
+    <div class="modal-banner" data-continent="${empire.continent}">
+      <span class="banner-text">${empire.name}</span>
+    </div>
     <div style="padding-top: 1rem;">${empire.name}</div>
   `;
   
