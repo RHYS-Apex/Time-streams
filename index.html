@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rise & Fall of Great Empires</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Header -->
+  <header class="hero">
+    <div class="hero-overlay">
+      <h1>Rise &amp; Fall of Great Empires</h1>
+      <p class="subtitle">A journey through the empires that shaped our world</p>
+      <div class="scroll-hint">▼ Scroll to explore</div>
+    </div>
+  </header>
+
+  <!-- Filter Bar -->
+  <section class="filters">
+    <h2>Explore by Continent</h2>
+    <div class="filter-buttons" id="filterButtons">
+      <button class="filter-btn active" data-continent="all">All</button>
+      <button class="filter-btn" data-continent="Africa">Africa</button>
+      <button class="filter-btn" data-continent="Asia">Asia</button>
+      <button class="filter-btn" data-continent="Europe">Europe</button>
+      <button class="filter-btn" data-continent="Americas">Americas</button>
+      <button class="filter-btn" data-continent="Oceania">Oceania</button>
+    </div>
+  </section>
+
+  <!-- Timeline / Empire Cards -->
+  <main class="timeline" id="timeline"></main>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <span class="close-btn" id="closeBtn">&times;</span>
+      <h2 id="modalTitle"></h2>
+      <p id="modalMeta" class="modal-meta"></p>
+      <p id="modalDescription"></p>
+      <div id="modalDetails" class="modal-details"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Empire History Project — Educational Resource</p>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
