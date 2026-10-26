@@ -1,4 +1,4 @@
-// ---------- Element References ----------
+ // ---------- Element References ----------
 const timeline = document.getElementById('timeline');
 const filterButtons = document.getElementById('filterButtons');
 const modal = document.getElementById('modal');
@@ -24,30 +24,35 @@ function renderEmpires(filter = 'all') {
   filtered.forEach((empire, index) => {
     const card = document.createElement('div');
     card.className = 'empire-card';
+    
+    // Notice the new <img> tag here
     card.innerHTML = `
-      <span class="continent-tag">${empire.continent}</span>
-      <h3>${empire.name}</h3>
-      <p class="period">${empire.period}</p>
-      <p class="summary">${empire.summary}</p>
+      <img src="${empire.image}" alt="${empire.name}" class="card-img" loading="lazy">
+      <div class="card-content">
+        <span class="continent-tag">${empire.continent}</span>
+        <h3>${empire.name}</h3>
+        <p class="period">${empire.period}</p>
+        <p class="summary">${empire.summary}</p>
+      </div>
     `;
     card.addEventListener('click', () => openModal(index));
     timeline.appendChild(card);
   });
 }
 
-// Store currently displayed list for modal reference
-let currentList = [];
-
 // ---------- Open Modal ----------
 function openModal(originalIndex) {
-  // Find the empire in the current filtered view
-  // We re-render cards by index, so look up empire via a stored reference
   const activeFilter = document.querySelector('.filter-btn.active').dataset.continent;
   const list = activeFilter === 'all' ? empires : empires.filter(e => e.continent === activeFilter);
   const empire = list[originalIndex];
   if (!empire) return;
 
-  modalTitle.textContent = empire.name;
+  // Add the image to the modal HTML
+  modalTitle.innerHTML = `
+    <img src="${empire.image}" alt="${empire.name}" class="modal-hero-img">
+    <div style="padding-top: 1rem;">${empire.name}</div>
+  `;
+  
   modalMeta.textContent = `${empire.period} • ${empire.continent}`;
   modalDescription.textContent = empire.description;
 
