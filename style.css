@@ -1,4 +1,4 @@
-/* ---------- Reset & Base ---------- */
+ /* ---------- Reset & Base ---------- */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
@@ -48,7 +48,7 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
   50% { transform: translateY(10px); }
 }
 
-/* ---------- Filters ---------- */
+/* ---------- Filters & Search ---------- */
 .filters {
   padding: 3rem 1rem 1rem;
   text-align: center;
@@ -58,6 +58,33 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
   font-size: 2rem;
   margin-bottom: 1.5rem;
   color: #4a2f1a;
+}
+
+#searchBar {
+  width: 100%;
+  max-width: 500px;
+  padding: 1rem 1.5rem;
+  margin: 0 auto 2rem auto;
+  display: block;
+  font-family: 'Lora', serif;
+  font-size: 1.1rem;
+  color: #2b2118;
+  background: #fffaf0;
+  border: 2px solid #8b5e34;
+  border-radius: 30px;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+#searchBar:focus {
+  border-color: #ca8a04;
+  box-shadow: 0 6px 15px rgba(139, 94, 52, 0.2);
+}
+
+#searchBar::placeholder {
+  color: #a08c73;
+  font-style: italic;
 }
 
 .filter-buttons {
@@ -85,7 +112,7 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
   color: #f4ede1;
 }
 
-/* ---------- Timeline ---------- */
+/* ---------- Timeline / Cards ---------- */
 .timeline {
   max-width: 1100px;
   margin: 3rem auto;
@@ -97,18 +124,40 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
 
 .empire-card {
   background: #fffaf0;
-  border-left: 6px solid #8b5e34;
-  padding: 1.8rem;
   border-radius: 8px;
   box-shadow: 0 6px 20px rgba(0,0,0,0.08);
   cursor: pointer;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
   position: relative;
+  padding: 0;
+  overflow: hidden;
+  border-left: 6px solid #8b5e34;
+  display: flex;
+  flex-direction: column;
 }
 
 .empire-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+/* IMAGE STYLES FOR CARD */
+.card-image-wrapper {
+  width: 100%;
+  height: 180px;
+  background: #e0cba8; /* Fallback color if image fails */
+  border-bottom: 2px solid #e0cba8;
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 1.5rem;
+  flex-grow: 1;
 }
 
 .empire-card h3 {
@@ -176,14 +225,42 @@ h1, h2, h3 { font-family: 'Cinzel', serif; }
   right: 1.4rem;
   font-size: 2rem;
   cursor: pointer;
-  color: #8b5e34;
+  color: #fffaf0;
+  background: rgba(0,0,0,0.5);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   line-height: 1;
+  z-index: 10;
+  transition: background 0.2s;
 }
+
+.close-btn:hover { background: #8b5e34; }
 
 .modal-content h2 {
   color: #4a2f1a;
   margin-bottom: 0.5rem;
   font-size: 2rem;
+}
+
+/* IMAGE STYLES FOR MODAL */
+.modal-image-wrapper {
+  width: 100%;
+  height: 250px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  background: #e0cba8;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.modal-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .modal-meta {
@@ -231,80 +308,6 @@ footer {
   .hero h1 { font-size: 2.2rem; }
   .subtitle { font-size: 1rem; }
   .timeline { grid-template-columns: 1fr; padding: 0 1rem; }
-  .modal-content { padding: 1.8rem; }
-}
-/* ---------- Custom Banner Styles ---------- */
-
-/* Remove padding from card to let banner touch edges */
-.empire-card {
-  padding: 0; 
-  overflow: hidden; 
-}
-
-/* The banner that replaces the image */
-.card-banner {
-  height: 150px;
-  width: 100%;
-  border-bottom: 4px solid #8b5e34;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 1rem;
-  box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
-}
-
-/* The text inside the banner */
-.banner-text {
-  font-family: 'Cinzel', serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: rgba(255, 255, 255, 0.9);
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-/* Add padding back to the text area */
-.card-content {
-  padding: 1.5rem; 
-}
-
-/* The banner inside the modal (popup) */
-.modal-banner {
-  height: 200px;
-  width: 100%;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
-}
-
-/* --- CONTINENT COLOR GRADIENTS --- */
-
-/* Africa: Rich Gold/Sand */
-[data-continent="Africa"] {
-  background: linear-gradient(135deg, #ca8a04, #78350f);
-}
-
-/* Asia: Deep Royal Purple/Blue */
-[data-continent="Asia"] {
-  background: linear-gradient(135deg, #4c1d95, #1e3a8a);
-}
-
-/* Europe: Imperial Bronze/Crimson */
-[data-continent="Europe"] {
-  background: linear-gradient(135deg, #be123c, #451a03);
-}
-
-/* Americas: Jade/Teal */
-[data-continent="Americas"] {
-  background: linear-gradient(135deg, #047857, #064e3b);
-}
-
-/* Oceania: Ocean Blue */
-[data-continent="Oceania"] {
-  background: linear-gradient(135deg, #0284c7, #082f49);
+  .modal-content { padding: 1.5rem; }
+  .modal-image-wrapper { height: 180px; }
 }
