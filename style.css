@@ -233,35 +233,78 @@ footer {
   .timeline { grid-template-columns: 1fr; padding: 0 1rem; }
   .modal-content { padding: 1.8rem; }
 }
-/* ---------- New Image Styles ---------- */
+/* ---------- Custom Banner Styles ---------- */
 
-/* Image inside the grid card */
+/* Remove padding from card to let banner touch edges */
 .empire-card {
-  padding: 0; /* Remove padding so image touches the edges */
-  overflow: hidden; /* Keeps image inside the card corners */
+  padding: 0; 
+  overflow: hidden; 
 }
 
-.card-img {
+/* The banner that replaces the image */
+.card-banner {
+  height: 150px;
   width: 100%;
-  height: 180px;
-  object-fit: cover;
   border-bottom: 4px solid #8b5e34;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 1rem;
+  box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
 }
 
+/* The text inside the banner */
+.banner-text {
+  font-family: 'Cinzel', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Add padding back to the text area */
 .card-content {
-  padding: 1.5rem; /* Add padding back to the text area */
+  padding: 1.5rem; 
 }
 
-/* Image inside the modal (popup) */
-.modal-hero-img {
+/* The banner inside the modal (popup) */
+.modal-banner {
+  height: 200px;
   width: 100%;
-  height: 250px;
-  object-fit: cover;
   border-radius: 8px;
   margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset 0 0 50px rgba(0,0,0,0.5);
 }
 
-/* Make sure modal content handles the new layout */
-.modal-content {
-  padding-top: 1.5rem; 
+/* --- CONTINENT COLOR GRADIENTS --- */
+
+/* Africa: Rich Gold/Sand */
+[data-continent="Africa"] {
+  background: linear-gradient(135deg, #ca8a04, #78350f);
+}
+
+/* Asia: Deep Royal Purple/Blue */
+[data-continent="Asia"] {
+  background: linear-gradient(135deg, #4c1d95, #1e3a8a);
+}
+
+/* Europe: Imperial Bronze/Crimson */
+[data-continent="Europe"] {
+  background: linear-gradient(135deg, #be123c, #451a03);
+}
+
+/* Americas: Jade/Teal */
+[data-continent="Americas"] {
+  background: linear-gradient(135deg, #047857, #064e3b);
+}
+
+/* Oceania: Ocean Blue */
+[data-continent="Oceania"] {
+  background: linear-gradient(135deg, #0284c7, #082f49);
 }
